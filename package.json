@@ -1,6 +1,6 @@
 {
   "name": "@seald-io/react-native-scrypt",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Native scrypt for React Native",
   "main": "index.js",
   "types": "index.d.ts",
