@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.2 - 2022-8-9
+-----------------
+
+- Fix Android build with newer Gradle versions.
+  [roaringUnicorn]
+
 1.2.1 - 2021-3-19
 -----------------
 

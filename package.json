@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scrypt",
+  "name": "@seald-io/react-native-scrypt",
   "version": "1.2.1",
   "description": "Native scrypt for React Native",
   "main": "index.js",
@@ -7,8 +7,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Yiorgis Gozadinos <ggozad@crypho.com>",
+  "author": "Seald SAS <contact@seald.io>",
   "contributors": [
+    {
+      "name": "Yiorgis Gozadinos",
+      "email": "ggozad@crypho.com"
+    },
     {
       "name": "Sonny Piers",
       "email": "sonny@crypho.com"
