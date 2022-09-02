@@ -38,13 +38,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/crypho/react-native-scrypt.git"
+    "url": "git+https://github.com/seald/react-native-scrypt.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/crypho/react-native-scrypt/issues"
+    "url": "https://github.com/seald/react-native-scrypt/issues"
   },
-  "homepage": "https://github.com/crypho/react-native-scrypt#readme",
+  "homepage": "https://github.com/seald/react-native-scrypt#readme",
   "dependencies": {
     "@types/node": "^14.14.35",
     "buffer": "^5.6.0"

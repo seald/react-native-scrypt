@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-declare module 'react-native-scrypt' {
+declare module '@seald-io/react-native-scrypt' {
   function scrypt (
     password: string,
     salt: number[],

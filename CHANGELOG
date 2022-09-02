@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.3 - 2022-9-2
+-----------------
+
+- Fix TypeScript typings with new repository.
+  [arantes555]
+
 1.2.2 - 2022-8-9
 -----------------
 
