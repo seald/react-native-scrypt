@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, Button, ActivityIndicator } from 'react-native';
-import { Buffer } from 'buffer';
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  Button,
+  ActivityIndicator,
+} from 'react-native';
 import scrypt from '@seald-io/react-native-scrypt';
 import testVectors from './test_vectors';
 
@@ -28,7 +34,10 @@ export default function App() {
         const result = await scrypt(
           v.password.toString('hex'),
           v.salt.toString('hex'),
-          v.N, v.r, v.p, v.dkLen,
+          v.N,
+          v.r,
+          v.p,
+          v.dkLen,
           'hex'
         );
         const passed = result === v.expected.toString('hex');
@@ -38,7 +47,11 @@ export default function App() {
           error: passed ? undefined : `Got: ${result}`,
         });
       } catch (e: any) {
-        testResults.push({ name: `Vector #${i} (hex)`, passed: false, error: e.message });
+        testResults.push({
+          name: `Vector #${i} (hex)`,
+          passed: false,
+          error: e.message,
+        });
       }
 
       // Test with base64 encoding
@@ -46,7 +59,10 @@ export default function App() {
         const result = await scrypt(
           v.password.toString('base64'),
           v.salt.toString('base64'),
-          v.N, v.r, v.p, v.dkLen,
+          v.N,
+          v.r,
+          v.p,
+          v.dkLen,
           'base64'
         );
         const passed = result === v.expected.toString('base64');
@@ -56,7 +72,11 @@ export default function App() {
           error: passed ? undefined : `Got: ${result}`,
         });
       } catch (e: any) {
-        testResults.push({ name: `Vector #${i} (base64)`, passed: false, error: e.message });
+        testResults.push({
+          name: `Vector #${i} (base64)`,
+          passed: false,
+          error: e.message,
+        });
       }
 
       // Test with buffer encoding
@@ -64,7 +84,10 @@ export default function App() {
         const result = await scrypt(
           v.password,
           v.salt,
-          v.N, v.r, v.p, v.dkLen,
+          v.N,
+          v.r,
+          v.p,
+          v.dkLen,
           'buffer'
         );
         const passed = result.equals(v.expected);
@@ -74,7 +97,11 @@ export default function App() {
           error: passed ? undefined : `Got: ${result.toString('hex')}`,
         });
       } catch (e: any) {
-        testResults.push({ name: `Vector #${i} (buffer)`, passed: false, error: e.message });
+        testResults.push({
+          name: `Vector #${i} (buffer)`,
+          passed: false,
+          error: e.message,
+        });
       }
 
       setResults([...testResults]);
@@ -99,14 +126,20 @@ export default function App() {
         <>
           <Text style={passed === results.length ? styles.pass : styles.fail}>
             {passed}/{totalTests} passed
-            {done ? (passed === totalTests ? ' - ALL PASSED' : ' - SOME FAILED') : ' - running...'}
+            {done
+              ? passed === totalTests
+                ? ' - ALL PASSED'
+                : ' - SOME FAILED'
+              : ' - running...'}
           </Text>
-          {results.filter((r) => !r.passed).map((r, idx) => (
-            <View key={idx} style={styles.row}>
-              <Text style={styles.fail}>[FAIL] {r.name}</Text>
-              {r.error && <Text style={styles.detail}>{r.error}</Text>}
-            </View>
-          ))}
+          {results
+            .filter((r) => !r.passed)
+            .map((r, idx) => (
+              <View key={idx} style={styles.row}>
+                <Text style={styles.fail}>[FAIL] {r.name}</Text>
+                {r.error && <Text style={styles.detail}>{r.error}</Text>}
+              </View>
+            ))}
         </>
       )}
     </ScrollView>

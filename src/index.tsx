@@ -47,7 +47,14 @@ async function scrypt(
     encodedSalt = salt as string;
   }
 
-  const result = await ReactNativeScrypt.scrypt(encodedInput, encodedSalt, N, r, p, dkLen);
+  const result = await ReactNativeScrypt.scrypt(
+    encodedInput,
+    encodedSalt,
+    N,
+    r,
+    p,
+    dkLen
+  );
 
   if (encoding === 'base64') {
     return Buffer.from(result, 'hex').toString('base64');
