@@ -1,6 +1,27 @@
 Changelog
 =========
 
+2.0.0 - 2026-2-9
+-----------------
+
+### BREAKING CHANGES
+
+- **Dropped 'legacy' encoding.** Supported encodings are now 'hex' (default),
+  'base64', and 'buffer'. If you were using the default encoding in v1.x,
+  switch to 'hex' (now the default) or 'buffer'.
+- **Minimum Android SDK raised to 24** (was 16).
+- **Minimum iOS version raised to 13**.
+- **Requires React Native 0.76+** (New Architecture / TurboModule support).
+
+### Other changes
+
+- Complete rewrite using modern React Native architecture (Turbo Modules).
+  Supports both Old and New Architecture.
+- Migrated Android build from ndk-build to CMake with 16K page size support.
+- Migrated to Kotlin (Android) and Objective-C++ (iOS) with TurboModule specs.
+- TypeScript rewrite with proper type definitions.
+- Example app now uses Expo.
+
 1.2.3 - 2022-9-2
 -----------------
 

@@ -1,60 +1,81 @@
-
 buildscript {
-    // The Android Gradle plugin is only required when opening the android folder stand-alone.
-    // This avoids unnecessary downloads and potential conflicts when the library is included as a
-    // module dependency in an application project.
-    if (project == rootProject) {
-        repositories {
-            google()
-            jcenter()
-        }
+  ext.ReactNativeScrypt = [
+    kotlinVersion: "2.0.21",
+    minSdkVersion: 24,
+    compileSdkVersion: 36,
+    targetSdkVersion: 36
+  ]
 
-        dependencies {
-            classpath("com.android.tools.build:gradle:3.5.2")
-        }
+  ext.getExtOrDefault = { prop ->
+    if (rootProject.ext.has(prop)) {
+      return rootProject.ext.get(prop)
     }
+
+    return ReactNativeScrypt[prop]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+  }
 }
 
-apply plugin: 'com.android.library'
 
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 23)
-    buildToolsVersion safeExtGet('buildToolsVersion', '23.0.1')
+  namespace "com.sealdio.reactnativescrypt"
 
-    defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        compileSdkVersion safeExtGet('compileSdkVersion', 23)
-        targetSdkVersion safeExtGet('targetSdkVersion', 23)
-        versionCode 1
-        versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-            moduleName "libscrypt_jni"
-            ldLibs "log"
-            cFlags "-std=c99"
-        }
+  compileSdkVersion getExtOrDefault("compileSdkVersion")
+
+  defaultConfig {
+    minSdkVersion getExtOrDefault("minSdkVersion")
+    targetSdkVersion getExtOrDefault("targetSdkVersion")
+
+    externalNativeBuild {
+      cmake {
+        cppFlags ""
+        arguments "-DANDROID_STL=c++_shared",
+                  "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+      }
     }
+  }
 
-    lintOptions {
-        abortOnError false
+  externalNativeBuild {
+    cmake {
+      path "src/main/jni/CMakeLists.txt"
     }
+  }
 
-    // https://stackoverflow.com/questions/30675767/project-builds-with-ndk-build-but-not-android-studio
-    sourceSets.main {
-        jniLibs.srcDir 'src/main/libs' //set libs as .so's location instead of jniLibs
-        jni.srcDirs = [] //disable automatic ndk-build call with auto-generated Android.mk
+  buildFeatures {
+    buildConfig true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
     }
-}
+  }
 
-repositories {
-    mavenCentral()
+  lint {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:+'
+  implementation "com.facebook.react:react-android"
 }
-
