@@ -33,6 +33,11 @@ int libscrypt_check(char *mcf, const char *password)
 	uint8_t salt[32];
 	char *tok;
 
+    if(mcf == NULL)
+    {
+        return -1;
+    }
+
 	if(memcmp(mcf, SCRYPT_MCF_ID, 3) != 0)
 	{
 		/* Only version 0 supported */
@@ -93,9 +98,7 @@ int libscrypt_check(char *mcf, const char *password)
 		return -1;
 
 	if(slow_equals(tok, outbuf) == 0)
-	{
 		return 0;
-	}
 
 	return 1; /* This is the "else" condition */
 }
